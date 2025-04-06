@@ -94,11 +94,11 @@ impl Drawable for Line {
         }
     }
 
-// rectangle.rs
-use super::point::Point;
-use raster::Color;
-use raster::Image;
-use super::traits::Drawable;
+       // Bright magenta for lines
+       fn color(&self) -> Color {
+        Color::rgb(255, 0, 255)
+    }
+}
 
 pub struct Rectangle {
     pub top_left: Point,
@@ -113,18 +113,55 @@ impl Rectangle {
         }
     }
 }
-
 impl Drawable for Rectangle {
+    // Draws rectangle by connecting its four corners with lines
     fn draw(&self, image: &mut Image) {
-        // Custom rectangle drawing logic...
-        // (Same as original file)
+        let top_right = Point::new(self.bottom_right.x, self.top_left.y);
+        let bottom_left = Point::new(self.top_left.x, self.bottom_right.y);
+        
+        // Get the rectangle's color - use a reference to avoid moves
+        let rect_color = self.color();
+        
+        // Draw each line segment with custom color instead of using Line's default color
+        // Mark the closure as mutable because it modifies the image
+        let mut draw_line = |start: &Point, end: &Point| {
+            let dx = (end.x - start.x).abs();
+            let dy = -(end.y - start.y).abs();
+            let sx = if start.x < end.x { 1 } else { -1 };
+            let sy = if start.y < end.y { 1 } else { -1 };
+            let mut err = dx + dy;
+
+            let mut x = start.x;
+            let mut y = start.y;
+
+            loop {
+                // Clone the color for each use to avoid moving ownership
+                image.display(x, y, rect_color.clone());
+                if x == end.x && y == end.y { break; }
+                let e2 = 2 * err;
+                if e2 >= dy {
+                    err += dy;
+                    x += sx;
+                }
+                if e2 <= dx {
+                    err += dx;
+                    y += sy;
+                }
+            }
+        };
+        
+        // Draw the four sides using our custom line drawing function
+        draw_line(&self.top_left, &top_right);
+        draw_line(&top_right, &self.bottom_right);
+        draw_line(&self.bottom_right, &bottom_left);
+        draw_line(&bottom_left, &self.top_left);
     }
 
+    // Bright yellow for rectangles
     fn color(&self) -> Color {
-        Color::rgb(255, 255, 0) // Yellow
+        Color::rgb(255, 255, 0)
     }
 }
-
 // triangle.rs
 use super::point::Point;
 use super::line::Line;
