@@ -67,15 +67,32 @@ impl Line {
 }
 
 impl Drawable for Line {
+    // Implements Bresenham's line drawing algorithm for efficient line rendering
     fn draw(&self, image: &mut Image) {
-        // Bresenham's algorithm implementation...
-        // (Same as original file)
+        let mut x = self.start.x;
+        let mut y = self.start.y;
+        let dx = (self.end.x - self.start.x).abs();
+        let dy = (self.end.y - self.start.y).abs();
+        let sx = if self.start.x < self.end.x { 1 } else { -1 };
+        let sy = if self.start.y < self.end.y { 1 } else { -1 };
+        
+        let mut err = if dx > dy { dx } else { -dy } / 2;
+        
+        loop {
+            image.display(x, y, self.color());
+            if x == self.end.x && y == self.end.y { break; }
+            
+            let e2 = err;
+            if e2 > -dx {
+                err -= dy;
+                x += sx;
+            }
+            if e2 < dy {
+                err += dx;
+                y += sy;
+            }
+        }
     }
-
-    fn color(&self) -> Color {
-        Color::rgb(255, 0, 255) // Magenta
-    }
-}
 
 // rectangle.rs
 use super::point::Point;
