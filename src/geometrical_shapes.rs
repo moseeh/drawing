@@ -67,7 +67,7 @@ impl Line {
 }
 
 impl Drawable for Line {
-    // Implements Bresenham's line drawing algorithm for efficient line rendering
+    // Implements line drawing algorithm for efficient line rendering
     fn draw(&self, image: &mut Image) {
         let mut x = self.start.x;
         let mut y = self.start.y;
@@ -191,12 +191,6 @@ impl Drawable for Triangle {
     }
 }
 
-// circle.rs
-use super::point::Point;
-use rand::Rng;
-use raster::Color;
-use raster::Image;
-use super::traits::Drawable;
 
 pub struct Circle {
     pub center: Point,
@@ -221,12 +215,39 @@ impl Circle {
 
 impl Drawable for Circle {
     fn draw(&self, image: &mut Image) {
-        // Midpoint circle algorithm...
-        // (Same as original file)
+        let mut x = 0;
+        let mut y = self.radius;
+        let mut d = 3 - 2 * self.radius;
+        
+        // Helper function to draw 8 symmetric points
+        let mut draw_circle_points = |x: i32, y: i32| {
+            // Draw all 8 octant points
+            image.display(self.center.x + x, self.center.y + y, self.color());
+            image.display(self.center.x + x, self.center.y - y, self.color());
+            image.display(self.center.x - x, self.center.y + y, self.color());
+            image.display(self.center.x - x, self.center.y - y, self.color());
+            image.display(self.center.x + y, self.center.y + x, self.color());
+            image.display(self.center.x + y, self.center.y - x, self.color());
+            image.display(self.center.x - y, self.center.y + x, self.color());
+            image.display(self.center.x - y, self.center.y - x, self.color());
+        };
+        
+        // Start drawing
+        while y >= x {
+            draw_circle_points(x, y);
+            
+            x += 1;
+            if d > 0 {
+                y -= 1;
+                d += 4 * (x - y) + 10;
+            } else {
+                d += 4 * x + 6;
+            }
+        }
     }
 
+    // Bright blue for circles
     fn color(&self) -> Color {
-        Color::rgb(0, 0, 255) // Blue
+        Color::rgb(0, 0, 255)
     }
 }
-
