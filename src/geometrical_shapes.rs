@@ -45,11 +45,6 @@ impl Drawable for Point {
     }
 }
 
-// line.rs
-use super::point::Point;
-use raster::Color;
-use raster::Image;
-use super::traits::Drawable;
 
 pub struct Line {
     pub start: Point,
