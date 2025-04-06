@@ -115,3 +115,37 @@ impl Drawable for Rectangle {
         Color::rgb(255, 255, 0) // Yellow
     }
 }
+
+// triangle.rs
+use super::point::Point;
+use super::line::Line;
+use raster::Color;
+use super::traits::Drawable;
+
+pub struct Triangle {
+    pub p1: Point,
+    pub p2: Point,
+    pub p3: Point,
+}
+
+impl Triangle {
+    pub fn new(p1: &Point, p2: &Point, p3: &Point) -> Self {
+        Self {
+            p1: p1.clone(),
+            p2: p2.clone(),
+            p3: p3.clone(),
+        }
+    }
+}
+
+impl Drawable for Triangle {
+    fn draw(&self, image: &mut Image) {
+        Line::new(&self.p1, &self.p2).draw(image);
+        Line::new(&self.p2, &self.p3).draw(image);
+        Line::new(&self.p3, &self.p1).draw(image);
+    }
+
+    fn color(&self) -> Color {
+        Color::rgb(255, 165, 0) // Orange
+    }
+}
