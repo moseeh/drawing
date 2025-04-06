@@ -47,3 +47,40 @@ impl Drawable for Point {
         Color::rgb(50, 255, 50) // Lime green
     }
 }
+
+// line.rs
+use super::point::Point;
+use raster::Color;
+use raster::Image;
+use super::traits::Drawable;
+
+pub struct Line {
+    pub start: Point,
+    pub end: Point,
+}
+
+impl Line {
+    pub fn new(p1: &Point, p2: &Point) -> Self {
+        Self {
+            start: p1.clone(),
+            end: p2.clone(),
+        }
+    }
+
+    pub fn random(width: i32, height: i32) -> Self {
+        let p1 = Point::random(width, height);
+        let p2 = Point::random(width, height);
+        Self::new(&p1, &p2)
+    }
+}
+
+impl Drawable for Line {
+    fn draw(&self, image: &mut Image) {
+        // Bresenham's algorithm implementation...
+        // (Same as original file)
+    }
+
+    fn color(&self) -> Color {
+        Color::rgb(255, 0, 255) // Magenta
+    }
+}
