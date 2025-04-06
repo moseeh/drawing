@@ -1,6 +1,7 @@
-// traits.rs
-use raster::Color;
-use raster::Image;
+// External crate imports for graphics and random number generation
+use raster::{Color, Image};
+use rand::Rng;
+
 
 /// Trait for objects that can be drawn on an image
 pub trait Drawable {
@@ -189,18 +190,3 @@ impl Drawable for Circle {
     }
 }
 
-// lib.rs or mod.rs
-pub mod traits;
-pub mod point;
-pub mod line;
-pub mod rectangle;
-pub mod triangle;
-pub mod circle;
-
-// Re-export all public types
-pub use traits::{Drawable, Displayable};
-pub use point::Point;
-pub use line::Line;
-pub use rectangle::Rectangle;
-pub use triangle::Triangle;
-pub use circle::Circle;
