@@ -162,11 +162,6 @@ impl Drawable for Rectangle {
         Color::rgb(255, 255, 0)
     }
 }
-// triangle.rs
-use super::point::Point;
-use super::line::Line;
-use raster::Color;
-use super::traits::Drawable;
 
 pub struct Triangle {
     pub p1: Point,
