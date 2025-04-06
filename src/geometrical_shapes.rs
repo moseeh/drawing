@@ -188,3 +188,19 @@ impl Drawable for Circle {
         Color::rgb(0, 0, 255) // Blue
     }
 }
+
+// lib.rs or mod.rs
+pub mod traits;
+pub mod point;
+pub mod line;
+pub mod rectangle;
+pub mod triangle;
+pub mod circle;
+
+// Re-export all public types
+pub use traits::{Drawable, Displayable};
+pub use point::Point;
+pub use line::Line;
+pub use rectangle::Rectangle;
+pub use triangle::Triangle;
+pub use circle::Circle;
