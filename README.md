@@ -6,19 +6,18 @@ This project's goal is to create and manipulate various geometrical shapes in Ru
 
 ## Project Structure
 
-Your project should be organized as follows:
+The project ids structured as follows:
 
 - drawing/src/
     - main.rs 
     - geometrical_shapes.rs
 
 
-## features
+## Features
 
 - `main.rs` contains the usage logic.
 - `geometrical_shapes.rs` defines all traits, structs, and their implementations.
 
----
 
 ## 🛠 Implementation Details
 
@@ -47,7 +46,7 @@ pub trait Displayable {
 }
 ```
 
-###  **shapes** 
+###  **Shapes** 
 
 | Shape      | `new` Function Parameters                                     |
 |------------|---------------------------------------------------------------|
@@ -75,16 +74,16 @@ mod geometrical_shapes;
 4. Hit Enter. An image containing the geometrical shapes is generated.
 
 
-### authors
+### Authors
 
 - Moses Onyango
 - Shayo Victor
 - Barrack Kope
 
 
-## how to contribute 👷 
+## How to contribute 👷 
 
-**1.** Clone [this](https://learn.zone01kisumu.ke/git//moonyango/drawing.git) repository.
+**1.** Fork [this](https://learn.zone01kisumu.ke/git//moonyango/drawing.git) repository.
 
 **2.** Clone the forked repository.
 
