@@ -95,7 +95,7 @@ git clone https://learn.zone01kisumu.ke/git/moonyango/drawing.git
 **3.** Navigate to the project directory.
 
 ```terminal
-cd ascii-art-output
+cd drawing
 ```
 
 **4.**  Make a new folder with your project name inside.
